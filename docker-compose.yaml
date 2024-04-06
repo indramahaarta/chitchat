@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: "db"
+    image: postgres:12.17-alpine3.19
+    volumes:
+      - chitchat_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+
+volumes:
+  chitchat_data:
+    name: "chitchat_data"

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div
+      class="overflow-hidden max-h-screen flex rounded-lg border bg-background shadow-lg"
+    >
+      <!-- Sidebar -->
+      <div class="overflow-hidden basis-0 grow-[20] shrink false )}">
+        <div class="h-[52px] flex items-center px-5">
+          <h1 class="text-xl font-bold">ChitChat</h1>
+        </div>
+        <div class="shrink-0 bg-border h-[1px] w-full"></div>
+        <div
+          class="group flex flex-col justify-center pt-4 px-[20px] data-[collapsed=true]:py-2"
+        >
+          <div class="text-base font-bold line-clamp-1">
+            I Made Indra Mahaarta
+          </div>
+          <div class="text-xs overflow-truncate line-clamp-1">
+            i.made023@ui.ac.id
+          </div>
+        </div>
+        <div class="group flex flex-col gap-4 py-4 data-[collapsed=true]:py-2">
+          <nav
+            class="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2"
+          >
+            <a
+              class="cursor-pointer inline-flex items-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 justify-start"
+              href="/"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-inbox mr-2 h-4 w-4"
+              >
+                <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
+                <path
+                  d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"
+                ></path></svg
+              >Inbox</a
+            ><a
+              class="cursor-pointer inline-flex items-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 justify-start"
+              href="/social"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-users-round mr-2 h-4 w-4"
+              >
+                <path d="M18 21a8 8 0 0 0-16 0"></path>
+                <circle cx="10" cy="8" r="5"></circle>
+                <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"></path></svg
+              >Social</a
+            ><a
+              class="cursor-pointer inline-flex items-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 justify-start"
+              ><svg
+                width="15"
+                height="15"
+                viewBox="0 0 15 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="mr-2"
+              >
+                <path
+                  d="M3 1C2.44771 1 2 1.44772 2 2V13C2 13.5523 2.44772 14 3 14H10.5C10.7761 14 11 13.7761 11 13.5C11 13.2239 10.7761 13 10.5 13H3V2L10.5 2C10.7761 2 11 1.77614 11 1.5C11 1.22386 10.7761 1 10.5 1H3ZM12.6036 4.89645C12.4083 4.70118 12.0917 4.70118 11.8964 4.89645C11.7012 5.09171 11.7012 5.40829 11.8964 5.60355L13.2929 7H6.5C6.22386 7 6 7.22386 6 7.5C6 7.77614 6.22386 8 6.5 8H13.2929L11.8964 9.39645C11.7012 9.59171 11.7012 9.90829 11.8964 10.1036C12.0917 10.2988 12.4083 10.2988 12.6036 10.1036L14.8536 7.85355C15.0488 7.65829 15.0488 7.34171 14.8536 7.14645L12.6036 4.89645Z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                ></path></svg
+              >Logout</a
+            >
+          </nav>
+        </div>
+      </div>
+
+      <!-- Middle -->
+      <div class="relative shrink basis-0 grow-[40] border-x">
+        <div
+          class="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b"
+        >
+          <div class="flex items-center px-4 py-2">
+            <h1 class="text-xl font-bold">Inbox</h1>
+            <div
+              class="inline-flex h-9 items-center justify-center rounded-lg p-1 text-muted-foreground ml-auto outline-none"
+            >
+              <button
+                class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs"
+              >
+                New Message
+              </button>
+            </div>
+          </div>
+          <div class="shrink-0 bg-border h-[1px] w-full"></div>
+          <form class="p-4">
+            <div class="relative">
+              <div class="absolute top-1/2 left-3 -translate-y-1/2">
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 15 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10 6.5C10 8.433 8.433 10 6.5 10C4.567 10 3 8.433 3 6.5C3 4.567 4.567 3 6.5 3C8.433 3 10 4.567 10 6.5ZM9.30884 10.0159C8.53901 10.6318 7.56251 11 6.5 11C4.01472 11 2 8.98528 2 6.5C2 4.01472 4.01472 2 6.5 2C8.98528 2 11 4.01472 11 6.5C11 7.56251 10.6318 8.53901 10.0159 9.30884L12.8536 12.1464C13.0488 12.3417 13.0488 12.6583 12.8536 12.8536C12.6583 13.0488 12.3417 13.0488 12.1464 12.8536L9.30884 10.0159Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <input
+                class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pl-8"
+                placeholder="Search"
+              />
+            </div>
+          </form>
+        </div>
+        <div
+          class="ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 m-0"
+          style="animation-duration: 0s"
+        >
+          <div
+            class="relative h-full chat-container overflow-y-scroll max-h-[calc(100vh-120px)]"
+            style="scrollbar-color: #cfd8dc #fff; scrollbar-width: thin"
+          >
+            <div class="w-full rounded-lg">
+              <div class="min-w-full table">
+                <div class="flex flex-col gap-2 p-4 pt-4">
+                  <div>
+                    <div
+                      class="flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent bg-muted cursor-pointer"
+                    >
+                      <div class="flex w-full flex-col gap-1">
+                        <div class="flex items-center">
+                          <div class="flex items-center gap-2">
+                            <div class="font-semibold">Ayu Suryanto</div>
+                          </div>
+                          <div class="ml-auto text-xs text-foreground">
+                            Apr 06, 2024, 17:27
+                          </div>
+                        </div>
+                      </div>
+                      <div class="line-clamp-3 text-xs text-muted-foreground">
+                        bang please bang
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      class="flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent bg-muted cursor-pointer"
+                    >
+                      <div class="flex w-full flex-col gap-1">
+                        <div class="flex items-center">
+                          <div class="flex items-center gap-2">
+                            <div class="font-semibold">Deyuna</div>
+                          </div>
+                          <div class="ml-auto text-xs text-foreground">
+                            Apr 06, 2024, 11:34
+                          </div>
+                        </div>
+                      </div>
+                      <div class="line-clamp-3 text-xs text-muted-foreground">
+                        hohoho
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      class="flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent bg-muted cursor-pointer"
+                    >
+                      <div class="flex w-full flex-col gap-1">
+                        <div class="flex items-center">
+                          <div class="flex items-center gap-2">
+                            <div class="font-semibold">Indra Mahaarta</div>
+                          </div>
+                          <div class="ml-auto text-xs text-foreground">
+                            Apr 06, 2024, 24:49
+                          </div>
+                        </div>
+                      </div>
+                      <div class="line-clamp-3 text-xs text-muted-foreground">
+                        test om
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 m-0"
+        ></div>
+      </div>
+
+      <!-- Right -->
+      <div class="flex h-full max-h-screen flex-col w-1/2 relative">
+        <div class="flex flex-1 flex-col">
+          <div
+            class="flex gap-2 flex-start items-center p-4 sticky top-0 left-0 w-full h-[52px] text-lg font-semibold bg-[#FFF] z-2"
+          ></div>
+          <div class="shrink-0 bg-border h-[1px] w-full mt-auto"></div>
+          <div
+            class="h-[calc(100vh-190px)] overflow-y-scroll flex flex-col-reverse"
+            style="scrollbar-color: #cfd8dc #fff; scrollbar-width: thin"
+          ></div>
+          <div class="p-4 pt-0 sticky bottom-0 z-2 bg-[#FFF]">
+            <form>
+              <div class="grid gap-4">
+                <textarea
+                  class="flex min-h-[60px] w-full rounded-md border border-input bg-transparent text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 p-4"
+                  placeholder="Reply undefined..."
+                ></textarea>
+                <div class="flex items-center">
+                  <button
+                    class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-8 rounded-md px-3 text-xs ml-auto"
+                  >
+                    Send
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

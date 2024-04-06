@@ -1,0 +1,346 @@
+basePath: /api
+definitions:
+  api.Chats:
+    properties:
+      content:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      receiver:
+        $ref: '#/definitions/api.UserResponse'
+      receiver_uid:
+        type: string
+      sender:
+        $ref: '#/definitions/api.UserResponse'
+      sender_uid:
+        type: string
+    type: object
+  api.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  api.History:
+    properties:
+      latest_content:
+        type: string
+      latest_created_at:
+        type: string
+      receiver_name:
+        type: string
+      receiver_uid:
+        type: string
+      sender_name:
+        type: string
+      sender_uid:
+        type: string
+    type: object
+  api.UserResponse:
+    properties:
+      avatar:
+        type: string
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      provider:
+        type: string
+    type: object
+  api.getChatsDetailsResponse:
+    properties:
+      chats:
+        items:
+          $ref: '#/definitions/api.Chats'
+        type: array
+      message:
+        type: string
+      user:
+        $ref: '#/definitions/api.UserResponse'
+    type: object
+  api.getChatsHistoriesResponse:
+    properties:
+      histories:
+        items:
+          $ref: '#/definitions/api.History'
+        type: array
+      message:
+        type: string
+    type: object
+  api.getSocialUserResponse:
+    properties:
+      message:
+        type: string
+      users:
+        items:
+          $ref: '#/definitions/api.UserResponse'
+        type: array
+    type: object
+  api.googleRequest:
+    properties:
+      token:
+        type: string
+    required:
+    - token
+    type: object
+  api.loginUserRequest:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 8
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  api.loginUserResponse:
+    properties:
+      access_token:
+        type: string
+      message:
+        type: string
+      user:
+        $ref: '#/definitions/api.UserResponse'
+    type: object
+  api.registerUserRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        minLength: 8
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  api.registerUserResponse:
+    properties:
+      access_token:
+        type: string
+      message:
+        type: string
+      user:
+        $ref: '#/definitions/api.UserResponse'
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a documentation for Chitchat API
+  title: Chitchat API Documentation
+  version: "1.0"
+paths:
+  /auth/google:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user with Google OAuth token
+      parameters:
+      - description: Google OAuth token
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.googleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User info from Google
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request - invalid or missing Google OAuth token
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "500":
+          description: Internal server error - failed to process the request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "502":
+          description: Bad Gateway - incorrect login method for the user's account
+            provider
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: Google Auth
+      tags:
+      - auth
+  /auth/signin:
+    post:
+      consumes:
+      - application/json
+      description: Login user with the provided credentials
+      parameters:
+      - description: User login details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.loginUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User login successful
+          schema:
+            $ref: '#/definitions/api.loginUserResponse'
+        "400":
+          description: Bad request - invalid input details or wrong password
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "404":
+          description: Not found - user with the given email does not exist
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "502":
+          description: Bad Gateway - incorrect login method for the user's account
+            provider
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: Login user
+      tags:
+      - auth
+  /auth/signup:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user with the provided details
+      parameters:
+      - description: User registration details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.registerUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User registration successful
+          schema:
+            $ref: '#/definitions/api.registerUserResponse'
+        "400":
+          description: Bad request - invalid input details
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "403":
+          description: Forbidden - email is already registered
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: Register a new user
+      tags:
+      - auth
+  /chat/histories:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the chat histories for the logged-in user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful retrieval of chat histories
+          schema:
+            $ref: '#/definitions/api.getChatsHistoriesResponse'
+        "401":
+          description: Unauthorized - Invalid or missing JWT token
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get chat histories
+      tags:
+      - chat
+  /chats/{uid}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the details of the chat history between the logged-in
+        user and the user specified by UID
+      parameters:
+      - description: User ID to get chat details with
+        in: path
+        name: uid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful retrieval of chat details
+          schema:
+            $ref: '#/definitions/api.getChatsDetailsResponse'
+        "400":
+          description: Bad request - Invalid UID
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "401":
+          description: Unauthorized - Invalid or missing JWT token
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "404":
+          description: Not Found - User not found
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get chat details
+      tags:
+      - chat
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of social users excluding the current user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful retrieval of users data
+          schema:
+            $ref: '#/definitions/api.getSocialUserResponse'
+        "401":
+          description: Unauthorized access
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      - BearerAuth: []
+      summary: Get social users
+      tags:
+      - users
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
