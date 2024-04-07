@@ -48,3 +48,31 @@ func (server *Server) getSocialUser(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, res)
 }
+
+// type getUserDetailsParam struct {
+// 	Uid string `uri:"uid"`
+// }
+
+// type getUserDetailsResponse struct {
+// 	Message string `json:"message"`
+// 	User UserResponse `json:"user"`
+// }
+
+// func (server *Server) getUserDetails(ctx *gin.Context) {
+// 	var param getUserDetailsParam
+// 	if err := ctx.ShouldBindUri(&param); err != nil {
+// 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+// 		return
+// 	}
+
+// 	user, err := server.store.GetUserById(ctx, uuid.MustParse(param.Uid))
+// 	if err != nil {
+// 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+// 		return
+// 	}
+
+// 	res := getUserDetailsResponse {
+// 		Message: "success to get user information",
+
+// 	}
+// }

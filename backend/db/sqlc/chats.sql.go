@@ -133,7 +133,8 @@ SELECT c.sender_uid,
     c.receiver_uid,
     receiver.name AS receiver_name,
     c.created_at AS latest_created_at,
-    c.content AS latest_content
+    c.content AS latest_content,
+    c.id
 FROM (
         SELECT id, content, created_at, sender_uid, receiver_uid,
             ROW_NUMBER() OVER (
@@ -158,13 +159,14 @@ type GetChatsHistoriesRow struct {
 	ReceiverName    sql.NullString `json:"receiver_name"`
 	LatestCreatedAt time.Time      `json:"latest_created_at"`
 	LatestContent   string         `json:"latest_content"`
+	ID              uuid.UUID      `json:"id"`
 }
 
 func (q *Queries) GetChatsHistories(ctx context.Context, senderUid uuid.UUID) ([]GetChatsHistoriesRow, error) {
 	rows, err := q.db.QueryContext(ctx, getChatsHistories, senderUid)
 	if err != nil {
 		return nil, err
-	} 
+	}
 	defer rows.Close()
 	items := []GetChatsHistoriesRow{}
 	for rows.Next() {
@@ -176,6 +178,7 @@ func (q *Queries) GetChatsHistories(ctx context.Context, senderUid uuid.UUID) ([
 			&i.ReceiverName,
 			&i.LatestCreatedAt,
 			&i.LatestContent,
+			&i.ID,
 		); err != nil {
 			return nil, err
 		}

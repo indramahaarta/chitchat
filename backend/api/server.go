@@ -61,6 +61,7 @@ func (server *Server) setupRouter() {
 
 	// social
 	authRouter.GET("/api/users", server.getSocialUser)
+	// authRouter.GET("/api/users/:uid", server.getUserDetails)
 
 	// chats
 	router.GET("/ws/chats", server.chat)

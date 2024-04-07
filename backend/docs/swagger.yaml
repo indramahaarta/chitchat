@@ -45,11 +45,11 @@ definitions:
         type: string
       email:
         type: string
-      id:
-        type: string
       name:
         type: string
       provider:
+        type: string
+      uid:
         type: string
     type: object
   api.getChatsDetailsResponse:

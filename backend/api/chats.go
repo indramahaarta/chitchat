@@ -48,6 +48,10 @@ func (server *Server) getChatsDetails(ctx *gin.Context) {
 		return
 	}
 
+	if payload.Uid.String() == params.Uid {
+		ctx.JSON(http.StatusBadRequest, errorResponse(fmt.Errorf("payload uid and params uid should be different")))
+	}
+
 	arg := db.GetChatsDetailsParams{
 		SenderUid:   payload.Uid,
 		ReceiverUid: uuid.MustParse(params.Uid),
@@ -93,6 +97,7 @@ func (server *Server) getChatsDetails(ctx *gin.Context) {
 }
 
 type History struct {
+	ID              uuid.UUID `json:"id"`
 	SenderUid       uuid.UUID `json:"sender_uid"`
 	SenderName      string    `json:"sender_name"`
 	ReceiverUid     uuid.UUID `json:"receiver_uid"`
@@ -115,7 +120,7 @@ type getChatsHistoriesResponse struct {
 // @Success 200 {object} getChatsHistoriesResponse "Successful retrieval of chat histories"
 // @Failure 401 {object} ErrorResponse "Unauthorized - Invalid or missing JWT token"
 // @Failure 500 {object} ErrorResponse "Internal server error"
-// @Router /chat/histories [get]
+// @Router /chats/histories [get]
 func (server *Server) getChatsHistories(ctx *gin.Context) {
 	payload, err := getUserPayload(ctx)
 	if err != nil {
@@ -132,6 +137,7 @@ func (server *Server) getChatsHistories(ctx *gin.Context) {
 	var parsedHistories []History
 	for _, history := range histories {
 		parsedHistories = append(parsedHistories, History{
+			ID:              history.ID,
 			SenderUid:       history.SenderUid,
 			SenderName:      history.SenderName.String,
 			ReceiverUid:     history.ReceiverUid,
@@ -154,6 +160,9 @@ var clients = make(map[uuid.UUID]*websocket.Conn)
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
+	CheckOrigin: func(r *http.Request) bool {
+		return true
+	},
 }
 
 type ChatParam struct {
@@ -177,13 +186,14 @@ type ChatBody struct {
 }
 
 type WSData struct {
-	History db.GetChatsHistoriesRow `json:"history"`
-	Chat    Chats                   `json:"chat"`
+	History History `json:"history"`
+	Chat    Chats   `json:"chat"`
 }
 
 func (server *Server) chat(ctx *gin.Context) {
 	conn, err := upgrader.Upgrade(ctx.Writer, ctx.Request, nil)
 	if err != nil {
+		fmt.Println("masuk", err)
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
@@ -192,11 +202,12 @@ func (server *Server) chat(ctx *gin.Context) {
 	accessToken, err := ctx.Request.Cookie("access_token")
 	if err != nil {
 		sendWebSocketError(conn, "access_token is not found in cookies")
+		return
 	}
 
 	payload, err := server.tokenMaker.VerifyToken(accessToken.Value)
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusUnauthorized, errorResponse(err))
+		sendWebSocketError(conn, "can't parsing payload")
 		return
 	}
 
@@ -271,11 +282,11 @@ func sendWebSocketError(conn *websocket.Conn, message string) {
 }
 
 func sendChat(conn *websocket.Conn, chat db.Chats, sender db.Users, receiver db.Users) {
-	history := db.GetChatsHistoriesRow{
+	history := History{
 		SenderUid:       chat.SenderUid,
-		SenderName:      sender.Name,
+		SenderName:      sender.Name.String,
 		ReceiverUid:     chat.ReceiverUid,
-		ReceiverName:    receiver.Name,
+		ReceiverName:    receiver.Name.String,
 		LatestCreatedAt: chat.CreatedAt,
 		LatestContent:   chat.Content,
 	}

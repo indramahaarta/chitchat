@@ -16,22 +16,22 @@ import (
 )
 
 type UserResponse struct {
-	ID                string    `json:"id"`
-	Email             string    `json:"email"`
-	Name              string    `json:"name"`
-	Avatar            string    `json:"avatar"`
-	Provider          string    `json:"provider"`
-	CreatedAt         time.Time `json:"created_at"`
+	UID       string    `json:"uid"`
+	Email     string    `json:"email"`
+	Name      string    `json:"name"`
+	Avatar    string    `json:"avatar"`
+	Provider  string    `json:"provider"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 func ReturnUserResponse(user *db.Users) *UserResponse {
 	return &UserResponse{
-		ID:                user.Uid.String(),
-		Avatar:            user.Avatar.String,
-		Name:              user.Name.String,
-		Email:             user.Email,
-		Provider:          user.Provider,
-		CreatedAt:         user.CreatedAt,
+		UID:       user.Uid.String(),
+		Avatar:    user.Avatar.String,
+		Name:      user.Name.String,
+		Email:     user.Email,
+		Provider:  user.Provider,
+		CreatedAt: user.CreatedAt,
 	}
 }
 
@@ -268,7 +268,7 @@ func (server *Server) google(ctx *gin.Context) {
 		AccessToken: accessToken,
 		Message:     "user information retrieved successfully",
 		User: UserResponse{
-			ID:     user.Uid.String(),
+			UID:    user.Uid.String(),
 			Email:  userInfo.Email,
 			Name:   userInfo.Name,
 			Avatar: userInfo.Picture,

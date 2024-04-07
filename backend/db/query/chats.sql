@@ -4,7 +4,8 @@ SELECT c.sender_uid,
     c.receiver_uid,
     receiver.name AS receiver_name,
     c.created_at AS latest_created_at,
-    c.content AS latest_content
+    c.content AS latest_content,
+    c.id
 FROM (
         SELECT *,
             ROW_NUMBER() OVER (
