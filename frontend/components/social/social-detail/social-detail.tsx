@@ -6,6 +6,7 @@ import { formatIsoDate } from "@/utils/formatIsoDate";
 import { Button } from "@/components/ui/button";
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
+import { getUserFallbackHandler } from "@/utils/getUserFallback";
 
 interface SocialDetailsProps {
   user: User | null;
@@ -21,7 +22,7 @@ const SocialDetails: FC<SocialDetailsProps> = ({ user }) => {
     >
       <Avatar className="w-[250px] h-[250px] aspect-square mb-4">
         <AvatarImage src={user?.avatar} />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarFallback> {getUserFallbackHandler(user?.name)}</AvatarFallback>
       </Avatar>
       <div className="font-bold text-lg">{user?.name}</div>
       <div className="font-semibold text-base">{user?.email}</div>

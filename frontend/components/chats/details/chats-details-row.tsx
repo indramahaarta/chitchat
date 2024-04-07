@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Chat, User } from "@/models/model";
 import { formatIsoDate } from "@/utils/formatIsoDate";
+import { getUserFallbackHandler } from "@/utils/getUserFallback";
 import { FC } from "react";
 
 interface ChatsDetailsRowProps {
@@ -26,7 +27,9 @@ const ChatsDetailsRow: FC<ChatsDetailsRowProps> = ({ activeUser, chat }) => {
         {isMyFriend() && (
           <Avatar>
             <AvatarImage src={activeUser?.avatar} />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback>
+              {getUserFallbackHandler(activeUser?.name)}
+            </AvatarFallback>
           </Avatar>
         )}
         <div
