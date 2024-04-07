@@ -127,12 +127,12 @@ const ChatsHistoryList: FC<ChatsHistoryListProps> = ({
               <div className="flex flex-col gap-2 p-4 pt-4">
                 {curHistory?.map((history) => (
                   <div
-                    key={history.id}
+                    key={history?.id}
                     onClick={() => {
                       onChatHistoryRowClicked(
-                        user?.id !== history.sender_uid
-                          ? history.sender_uid
-                          : history.receiver_uid
+                        user?.id !== history?.sender_uid
+                          ? history?.sender_uid
+                          : history?.receiver_uid
                       );
                     }}
                   >
