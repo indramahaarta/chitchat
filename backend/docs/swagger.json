@@ -37,8 +37,7 @@
                     "200": {
                         "description": "User info from Google",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/api.ErrorResponse"
                         }
                     },
                     "400": {
@@ -172,7 +171,7 @@
                 }
             }
         },
-        "/chat/histories": {
+        "/chats/histories": {
             "get": {
                 "security": [
                     {
@@ -355,6 +354,9 @@
         "api.History": {
             "type": "object",
             "properties": {
+                "id": {
+                    "type": "string"
+                },
                 "latest_content": {
                     "type": "string"
                 },

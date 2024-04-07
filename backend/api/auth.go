@@ -192,7 +192,7 @@ type googleResponse struct {
 // @Accept json
 // @Produce json
 // @Param request body googleRequest true "Google OAuth token"
-// @Success 200 {object} map[string]interface{} "User info from Google"
+// @Success 200 {object} ErrorResponse "User info from Google"
 // @Failure 400 {object} ErrorResponse "Bad request - invalid or missing Google OAuth token"
 // @Failure 500 {object} ErrorResponse "Internal server error - failed to process the request"
 // @Failure 502 {object} ErrorResponse "Bad Gateway - incorrect login method for the user's account provider"

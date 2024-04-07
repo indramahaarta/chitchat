@@ -43,17 +43,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  async headers() {
-    return {
-      "Cache-Control": "no-store", // Prevent caching for security
-    };
-  },
-  async rewrites() {
-    return [
-      {
-        source: "/((?!api|_next/static|_next/image|favicon.ico).*)",
-        destination: "/",
-      },
-    ];
-  },
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

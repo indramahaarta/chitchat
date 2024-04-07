@@ -43,8 +43,7 @@ const docTemplate = `{
                     "200": {
                         "description": "User info from Google",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/api.ErrorResponse"
                         }
                     },
                     "400": {
@@ -178,7 +177,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/chat/histories": {
+        "/chats/histories": {
             "get": {
                 "security": [
                     {
@@ -361,6 +360,9 @@ const docTemplate = `{
         "api.History": {
             "type": "object",
             "properties": {
+                "id": {
+                    "type": "string"
+                },
                 "latest_content": {
                     "type": "string"
                 },
