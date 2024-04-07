@@ -53,7 +53,7 @@ const Chats: FC<ChatsProps> = ({ histories }) => {
         chat.receiver_uid === currentUser.uid
       ) {
         setChats((cChats) => {
-          if (!cChats) return [];
+          if (!cChats) return [chat];
 
           const chatExists = cChats?.some((c) => c.id === chat.id);
           return chatExists ? cChats : [chat, ...cChats];
@@ -89,8 +89,6 @@ const Chats: FC<ChatsProps> = ({ histories }) => {
     if (!uidActive) return;
 
     setCurHistory((cHistory) => {
-      if (!cHistory) return [];
-
       const newHs: History = {
         id: new Date().toISOString(),
         latest_content: "",
@@ -100,7 +98,12 @@ const Chats: FC<ChatsProps> = ({ histories }) => {
         sender_name: user?.name,
         sender_uid: user?.id,
       } as History;
+
       let idx: number = -1;
+
+      if (!cHistory) {
+        return [newHs];
+      }
 
       let newHistory =
         cHistory?.filter((hs, id) => {
