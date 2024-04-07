@@ -16,18 +16,18 @@ const ChatsHistoryRow: FC<ChatsHistoryRowProps> = ({ history }) => {
         <div className="flex items-center">
           <div className="flex items-center gap-2">
             <div className="font-semibold">
-              {user?.id !== history.receiver_uid
-                ? history.receiver_name
-                : history.sender_name}
+              {user?.id !== history?.receiver_uid
+                ? history?.receiver_name
+                : history?.sender_name}
             </div>
           </div>
           <div className="ml-auto text-xs text-foreground">
-            {formatIsoDate(history.latest_created_at)}
+            {formatIsoDate(history?.latest_created_at)}
           </div>
         </div>
       </div>
       <div className="line-clamp-3 text-xs text-muted-foreground">
-        {history.latest_content}
+        {history?.latest_content}
       </div>
     </div>
   );
