@@ -32,10 +32,10 @@ const Chats: FC<ChatsProps> = ({ histories }) => {
       let newHistory =
         cHistory?.filter((hs) => {
           if (
-            (chat.sender_uid === hs.sender_uid &&
-              chat.receiver_uid === hs.receiver_uid) ||
-            (chat.receiver_uid === hs.sender_uid &&
-              chat.sender_uid === hs.receiver_uid)
+            (chat?.sender_uid === hs?.sender_uid &&
+              chat?.receiver_uid === hs?.receiver_uid) ||
+            (chat?.receiver_uid === hs?.sender_uid &&
+              chat?.sender_uid === hs?.receiver_uid)
           ) {
             return false;
           }
@@ -49,13 +49,13 @@ const Chats: FC<ChatsProps> = ({ histories }) => {
       if (!currentUser) return null;
 
       if (
-        chat.sender_uid === currentUser.uid ||
-        chat.receiver_uid === currentUser.uid
+        chat?.sender_uid === currentUser?.uid ||
+        chat?.receiver_uid === currentUser?.uid
       ) {
         setChats((cChats) => {
           if (!cChats) return [chat];
 
-          const chatExists = cChats?.some((c) => c.id === chat.id);
+          const chatExists = cChats?.some((c) => c?.id === chat?.id);
           return chatExists ? cChats : [chat, ...cChats];
         });
       }
