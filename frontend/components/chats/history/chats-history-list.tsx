@@ -138,7 +138,7 @@ const ChatsHistoryList: FC<ChatsHistoryListProps> = ({
                   >
                     <ChatsHistoryRow history={history} />
                   </div>
-                ))}
+                )) ?? []}
               </div>
             </div>
           </div>
