@@ -92,7 +92,7 @@ const Chats: FC<ChatsProps> = ({ histories }) => {
       if (!cHistory) return [];
 
       const newHs: History = {
-        id: "",
+        id: new Date().toISOString(),
         latest_content: "",
         latest_created_at: new Date().toISOString(),
         receiver_name: nameActive,

@@ -283,6 +283,7 @@ func sendWebSocketError(conn *websocket.Conn, message string) {
 
 func sendChat(conn *websocket.Conn, chat db.Chats, sender db.Users, receiver db.Users) {
 	history := History{
+		ID:              chat.ID,
 		SenderUid:       chat.SenderUid,
 		SenderName:      sender.Name.String,
 		ReceiverUid:     chat.ReceiverUid,

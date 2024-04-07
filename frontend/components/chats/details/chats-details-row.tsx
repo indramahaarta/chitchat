@@ -19,7 +19,7 @@ const ChatsDetailsRow: FC<ChatsDetailsRowProps> = ({ activeUser, chat }) => {
       }`}
     >
       <div
-        className={`max-w-[80%] flex gap-2 px-4 ${
+        className={`max-w-[95%] flex gap-2 px-4 ${
           !isMyFriend() && "flex-row-reverse"
         }`}
       >

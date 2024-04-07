@@ -75,7 +75,7 @@ const ChatsHistoryList: FC<ChatsHistoryListProps> = ({
                 <DialogHeader>
                   <DialogTitle>Select User</DialogTitle>
                 </DialogHeader>
-                <ScrollArea  className="max-h-[500px] h-full flex flex-col gap-2 w-[350px] p-0">
+                <ScrollArea className="max-h-[500px] h-full flex flex-col gap-2 w-[350px] p-0">
                   {friends?.map((friend, idx) => (
                     <div
                       key={friend.uid}

@@ -20,6 +20,7 @@
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "date-fns-tz": "^3.0.0",
     "formik": "^2.4.5",
     "next": "14.1.4",
     "react": "^18",
