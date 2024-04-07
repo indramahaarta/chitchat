@@ -12,7 +12,6 @@ const parseJwtPayload = (token: string): Payload | null => {
     const jsonPayload = Buffer.from(base64, "base64").toString("utf-8");
     return JSON.parse(jsonPayload);
   } catch (e) {
-    console.log(e);
     return null;
   }
 };

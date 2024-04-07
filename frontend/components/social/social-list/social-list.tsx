@@ -1,6 +1,6 @@
 import { User } from "@/models/model";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import SocialListRow from "./social-list-row";
 
 interface SocialListProps {
@@ -9,16 +9,32 @@ interface SocialListProps {
 }
 
 const SocialList: FC<SocialListProps> = ({ users, onUserClicked }) => {
+  const [currentUsers, setCurUsers] = useState(users);
+  const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    if (searchValue.trim().length) {
+      let newUsers = users?.filter((user) => {
+        const sv = searchValue.toLowerCase();
+        return (
+          user.email.toLowerCase().includes(sv) ||
+          user.name.toLowerCase().includes(sv)
+        );
+      });
+
+      if (newUsers) {
+        setCurUsers(newUsers);
+      }
+    } else {
+      setCurUsers(users);
+    }
+  }, [searchValue, users]);
+
   return (
     <div className="relative shrink basis-0 grow-[40] border-x">
       <div className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
-        <div className="flex items-center px-4 py-2">
-          <h1 className="text-xl font-bold">Inbox</h1>
-          <div className="inline-flex h-9 items-center justify-center rounded-lg p-1 text-muted-foreground ml-auto outline-none">
-            <button className="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs">
-              New Message
-            </button>
-          </div>
+        <div className="flex items-center px-4 py-2  h-[52px]">
+          <h1 className="text-xl font-bold">Social</h1>
         </div>
 
         <div className="shrink-0 bg-border h-[1px] w-full"></div>
@@ -31,6 +47,7 @@ const SocialList: FC<SocialListProps> = ({ users, onUserClicked }) => {
             <input
               className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pl-8"
               placeholder="Search"
+              onChange={(e) => setSearchValue(e.currentTarget.value)}
             />
           </div>
         </form>
@@ -46,7 +63,7 @@ const SocialList: FC<SocialListProps> = ({ users, onUserClicked }) => {
           <div className="w-full rounded-lg">
             <div className="min-w-full table">
               <div className="flex flex-col gap-2 p-4 pt-4">
-                {users?.map((user) => (
+                {currentUsers?.map((user) => (
                   <div key={user.uid} onClick={() => onUserClicked(user)}>
                     <SocialListRow user={user} />
                   </div>

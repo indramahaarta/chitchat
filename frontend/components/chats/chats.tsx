@@ -45,20 +45,21 @@ const Chats: FC<ChatsProps> = ({ histories }) => {
       return [history, ...newHistory];
     });
 
-    setChats((cChats) => {
-      if (
-        cChats?.find(
-          (ch) =>
-            (chat.sender_uid === ch.sender_uid &&
-              chat.receiver_uid === ch.receiver_uid) ||
-            (chat.receiver_uid === ch.sender_uid &&
-              chat.sender_uid === ch.receiver_uid)
-        )
-      ) {
-        return [chat, ...cChats];
-      }
+    setActiveUser((currentUser) => {
+      if (!currentUser) return null;
 
-      return [...(cChats ?? [])];
+      if (
+        chat.sender_uid === currentUser.uid ||
+        chat.receiver_uid === currentUser.uid
+      ) {
+        setChats((cChats) => {
+          if (!cChats) return [];
+
+          const chatExists = cChats?.some((c) => c.id === chat.id);
+          return chatExists ? cChats : [chat, ...cChats];
+        });
+      }
+      return currentUser;
     });
   };
 

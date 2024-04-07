@@ -14,7 +14,6 @@ export async function middleware(request: NextRequest) {
   }
 
   if (!accessToken && !request.nextUrl.pathname.includes("/auth")) {
-    console.log("masuk 1");
     const authUrl = new URL("/auth", request.url).toString();
     return NextResponse.redirect(authUrl);
   }
@@ -26,7 +25,6 @@ export async function middleware(request: NextRequest) {
       new Date(payload.expiredAt) <= new Date()) &&
     !request.nextUrl.pathname.includes("/auth")
   ) {
-    console.log("masuk 2");
     const authUrl = new URL("/auth", request.url).toString();
     return NextResponse.redirect(authUrl);
   }
@@ -37,7 +35,6 @@ export async function middleware(request: NextRequest) {
     new Date(payload.expiredAt) > new Date() &&
     request.nextUrl.pathname.startsWith("/auth")
   ) {
-    console.log("masuk 3");
     const homeUrl = new URL("/", request.url).toString();
     return NextResponse.redirect(homeUrl);
   }
